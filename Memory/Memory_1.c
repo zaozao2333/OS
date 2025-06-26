@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdint.h>
 
+#define SIZE_64MB (64 * 1024 * 1024)
 #define SIZE_128MB (128 * 1024 * 1024)
 #define SIZE_1024MB (1024 * 1024 * 1024)
 #define PAGE_SIZE 4096  // 4KB页大小（Linux默认）
@@ -35,7 +36,13 @@ int main() {
     printf("Allocated 1024MB at %p\n", big_ptr);
     printf("Align page address: %p\n", (void *)ALIGN_PAGE(big_ptr));
     print_status();
-    
+
+    // 分配64MB
+    void *new_ptr = malloc(SIZE_64MB);
+    printf("Allocated 64MB at %p\n", new_ptr);
+    printf("Align page address: %p\n", (void *)ALIGN_PAGE(new_ptr));
+    print_status();
+
     // 保持进程运行以便观察/proc/pid/maps
     printf("Process PID: %d \n", getpid());
     pause();
